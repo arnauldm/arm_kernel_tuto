@@ -1,16 +1,16 @@
 
 # References
 
-[VEXPRESS-A9] *ARM CoreTile Express A9×4 Cortex-A9 MPCore (V2P-CA9) Technical Reference Manual*
-[MOTHERBOARD] *ARM Motherboard Express µATX*
-[ARM-V7AR] *ARM Architecture Reference Manual, ARMv7-A and ARMv7-R edition*
-[CORTEX-A9] *ARM Cortex-A9 Technical Reference Manual*
-[MPCORE-A9] *Cortex-A9 MPCore Technical Reference Manual*
-[GIC] *ARM Generic Interrupt Controller*
-[UART] *PrimeCell UART (PL011) Technical Reference Manual.*
+* [VEXPRESS-A9] *ARM CoreTile Express A9×4 Cortex-A9 MPCore (V2P-CA9) Technical Reference Manual*
+* [MOTHERBOARD] *ARM Motherboard Express µATX*
+* [ARM-V7AR] *ARM Architecture Reference Manual, ARMv7-A and ARMv7-R edition*
+* [CORTEX-A9] *ARM Cortex-A9 Technical Reference Manual*
+* [MPCORE-A9] *Cortex-A9 MPCore Technical Reference Manual*
+* [GIC] *ARM Generic Interrupt Controller*
+* [UART] *PrimeCell UART (PL011) Technical Reference Manual.*
 
-https://www.embedded.com/design/mcus-processors-and-socs/4007119/Building-Bare-Metal-ARM-Systems-with-GNU-Part-1--Getting-Started
-https://www.embedded.com/design/mcus-processors-and-socs/4026075/Building-Bare-Metal-ARM-Systems-with-GNU-Part-2
+* https://www.embedded.com/design/mcus-processors-and-socs/4007119/Building-Bare-Metal-ARM-Systems-with-GNU-Part-1--Getting-Started
+* https://www.embedded.com/design/mcus-processors-and-socs/4026075/Building-Bare-Metal-ARM-Systems-with-GNU-Part-2
 
 
 # Where are mapped the peripherals in memory (and the uart) ?
@@ -35,4 +35,15 @@ https://www.embedded.com/design/mcus-processors-and-socs/4026075/Building-Bare-M
 
 * Registers are described page 3-3 in [UART] documentation.
 
+# Source files
+
+* `gic.c` and `gic.h` - Interrupt Controler initialisation and utilities
+* `handlers.c` and `handlers.h` - IRQ and syscall handlers
+* `lib.c` and `lib.h` - Various functions (memcpy, strcpy, printk, etc.) which are usually provided by the *stdlib*
+* `main.c` - The C entry point, called by the entry function defined in `startup.S`
+* `memory.c` and `memory.h` - Memory mapping (MMIO) 
+* `registers.h` - CPSR register is defined here
+* `startup.S` - The *reset* entry point and the *vector table*
+* `timer.c` and `timer.h` - *Global timer* initialisation and utilities
+* `uart.c` and `uart.h` - *PL011* initialisation and utilities
 
