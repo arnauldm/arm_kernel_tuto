@@ -125,7 +125,15 @@ void cpu_interface_init (void)
 {
     /* Read the Configuration Base Address Register */
     cpu_interface = (struct t_cpu_interface *) (PERIPHBASE + CPUBASE);
+
+    /* 
+     * Only interrupts with higher priority than the value in this register are
+     * signaled to the processor. Note: Higher priority corresponds to a lower
+     * Priority field value, thus, the following statement will signal every
+     * interrupts. 
+     */
     cpu_interface_priority_filter (0xff);
+
     cpu_interface_enable ();
 }
 

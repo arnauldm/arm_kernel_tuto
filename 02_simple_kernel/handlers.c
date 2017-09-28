@@ -12,8 +12,11 @@ void c_swi_handler (uint32_t num)
 }
 
 
+/* 
+ * Note: this __attribute__ cannot handle nested interrupts 
+ * ARM Ltd. recommends using SYSTEM mode while programming reentrant interrupt handlers
+ */
 void __attribute__ ((interrupt ("IRQ"))) c_irq_handler (void)
-/* Note: this __attribute__ cannot handle nested interrupts */
 {
     int irq;
 

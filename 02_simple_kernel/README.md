@@ -3,11 +3,17 @@
 
 [VEXPRESS-A9] *ARM CoreTile Express A9×4 Cortex-A9 MPCore (V2P-CA9) Technical Reference Manual*
 [MOTHERBOARD] *ARM Motherboard Express µATX*
-[UART] *PrimeCell UART (PL011) Technical Reference Manual.*
+[ARM-V7AR] *ARM Architecture Reference Manual, ARMv7-A and ARMv7-R edition*
+[CORTEX-A9] *ARM Cortex-A9 Technical Reference Manual*
 [MPCORE-A9] *Cortex-A9 MPCore Technical Reference Manual*
 [GIC] *ARM Generic Interrupt Controller*
+[UART] *PrimeCell UART (PL011) Technical Reference Manual.*
 
-# Where is mapped the UART ?
+https://www.embedded.com/design/mcus-processors-and-socs/4007119/Building-Bare-Metal-ARM-Systems-with-GNU-Part-1--Getting-Started
+https://www.embedded.com/design/mcus-processors-and-socs/4026075/Building-Bare-Metal-ARM-Systems-with-GNU-Part-2
+
+
+# Where are mapped the peripherals in memory (and the uart) ?
 
 * Document [VEXPRESS-A9] describes the overall architecture of the *versatile
   express cortex-a9* development card. Page 3-3 describes the daughterboard

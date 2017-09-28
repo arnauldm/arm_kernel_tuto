@@ -2,6 +2,11 @@
 .code 32 /* 32-bit ARM instruction set */
 .global reset, vectors_table
 
+/*
+ * This file is designed to be generic, and should work for any ARM-based MCU
+ * without modifications
+ */
+
 reset:
   ldr pc, reset_handler_addr 
   ldr pc, undefined_handler_addr 
