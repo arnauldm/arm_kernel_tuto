@@ -11,7 +11,7 @@ MEMORY
 
 SECTIONS
 {
-	.startup : { startup.o(.text) } >RAM
+	.startup : { *startup.o(.text) } >RAM
 	.text : { *(.text) } >RAM
 	.data : { *(.data) } >RAM
 	.bss : { *(.bss) *(COMMON) } >RAM

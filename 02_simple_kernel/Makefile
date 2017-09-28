@@ -6,22 +6,27 @@ ASFLAGS	= -g
 CFLAGS 	= -g -Wall -Wextra -ffreestanding
 LDFLAGS = -nostdlib -lgcc 
 
-all: main.elf
+BUILD   = build
 
-main.elf: startup.o main.o gic.o  handlers.o  lib.o  memory.o  timer.o  uart.o
+all: $(BUILD) $(BUILD)/main.elf
+
+$(BUILD):
+	mkdir $(BUILD)
+
+$(BUILD)/main.elf: $(BUILD)/startup.o $(BUILD)/main.o $(BUILD)/gic.o  $(BUILD)/handlers.o  $(BUILD)/lib.o  $(BUILD)/memory.o  $(BUILD)/timer.o  $(BUILD)/uart.o
 	arm-none-eabi-gcc $^ $(LDFLAGS) -T link.ld -o $@ 
 
-startup.o: startup.S
+$(BUILD)/startup.o: startup.S
 	arm-none-eabi-as $(ASFLAGS) -mcpu=$(MCPU) -o $@ $^
 
-%.o: %.c
+$(BUILD)/%.o: %.c
 	arm-none-eabi-gcc $(CFLAGS) -mcpu=$(MCPU) -c -o $@ $^
 
-run: main.elf
+run: $(BUILD)/main.elf
 	QEMU_AUDIO_DRV=none qemu-system-arm -M $(BOARD) -m 128M -serial stdio -kernel $^
 
 clean:
-	rm -f *~ *.o main.elf 
+	rm -f *~ $(BUILD)/*.o $(BUILD)/main.elf 
 
 indent:
 	indent -kr -nut -pcs *.c *.h
