@@ -37,13 +37,13 @@
 
 # Source files
 
-* `gic.c` and `gic.h` - Interrupt Controler initialisation and utilities
-* `handlers.c` and `handlers.h` - IRQ and syscall handlers
-* `lib.c` and `lib.h` - Various functions (memcpy, strcpy, printk, etc.) which are usually provided by the *stdlib*
+* `gic.[ch]` - Interrupt Controler initialisation and utilities
+* `handlers.[ch]` - IRQ and syscall handlers
+* `lib.[ch]` - Various functions (memcpy, strcpy, printk, etc.) which are usually provided by the *stdlib*
 * `main.c` - The C entry point, called by the entry function defined in `startup.S`
-* `memory.c` and `memory.h` - Memory mapping (MMIO) 
+* `memory.[ch]` - Memory mapping (MMIO) 
 * `registers.h` - CPSR register is defined here
 * `startup.S` - The *reset* entry point and the *vector table*
-* `timer.c` and `timer.h` - *Global timer* initialisation and utilities
-* `uart.c` and `uart.h` - *PL011* initialisation and utilities
+* `timer.[ch]` - *Global timer* initialisation and utilities
+* `uart.[ch]` - *PL011* initialisation and utilities
 
