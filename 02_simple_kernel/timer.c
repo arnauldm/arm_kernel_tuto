@@ -26,4 +26,3 @@ void global_timer_auto_increment (uint32_t period)
     global_timer->ctrl |= AUTO_INCR_ENABLE;
     global_timer->ctrl |= TIMER_ENABLE;
 }
-

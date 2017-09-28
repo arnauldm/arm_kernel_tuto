@@ -64,13 +64,13 @@ struct t_cpu_interface {
 #define MAXIRQ 256
 
 enum INTERRUPTs {
-    SGI0 = 0, /* 16 private interrupts, triggered by software */
+    SGI0 = 0,                   /* 16 private interrupts, triggered by software */
     GLOBAL_TIMER = 27,
     LEGACY_FIQ = 28,
     PRIV_TIMER = 29,
     WATCHDOG = 30,
     LEGACY_IRQ = 31,
-    SPI0 = 32 /* up to 224 interrupt lines */
+    SPI0 = 32                   /* up to 224 interrupt lines */
 };
 
 extern void distributor_enable_irq (int);
@@ -80,5 +80,3 @@ extern int cpu_interface_get_irq (void);
 extern void cpu_interface_send_EOI (int);
 extern void gic_enable (void);
 extern void gic_init (void);
-
-

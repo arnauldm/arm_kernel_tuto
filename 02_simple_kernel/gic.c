@@ -16,13 +16,13 @@ void distributor_enable_irq (int irq)
      * Note: writing '0' has no effect, thus we don't have to xor the register
      * with the expected value
      */
-    distributor->ICDISER[irq/32] = (uint32_t) 1 << (irq % 32);
+    distributor->ICDISER[irq / 32] = (uint32_t) 1 << (irq % 32);
 }
 
 
 void distributor_disable_irq (int irq)
 {
-    distributor->ICDICER[irq/32] = (uint32_t) 1 << (irq % 32);
+    distributor->ICDICER[irq / 32] = (uint32_t) 1 << (irq % 32);
 }
 
 
@@ -37,7 +37,7 @@ void distributor_cpu_target (int irq, uint8_t cpu)
  */
 void distributor_clear_pending (int irq)
 {
-    distributor->ICDICPR[irq/32] = (uint32_t) 1 << (irq % 32);
+    distributor->ICDICPR[irq / 32] = (uint32_t) 1 << (irq % 32);
 }
 
 
@@ -117,7 +117,7 @@ void distributor_init (void)
     for (int i = 0; i < it_lines; i++)
         distributor_cpu_target (it_lines, 0);
 
-    distributor_enable();
+    distributor_enable ();
 }
 
 
@@ -126,14 +126,14 @@ void cpu_interface_init (void)
     /* Read the Configuration Base Address Register */
     cpu_interface = (struct t_cpu_interface *) (PERIPHBASE + CPUBASE);
     cpu_interface_priority_filter (0xff);
-    cpu_interface_enable();
+    cpu_interface_enable ();
 }
 
 
 void gic_init (void)
 {
-    distributor_init();
-    cpu_interface_init();
+    distributor_init ();
+    cpu_interface_init ();
 }
 
 
@@ -151,4 +151,3 @@ void gic_enable (void)
 
     asm volatile ("cpsie if":::"memory", "cc");
 }
-

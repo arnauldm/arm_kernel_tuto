@@ -13,6 +13,7 @@ void c_swi_handler (uint32_t num)
 
 
 void __attribute__ ((interrupt ("IRQ"))) c_irq_handler (void)
+/* Note: this __attribute__ cannot handle nested interrupts */
 {
     int irq;
 
@@ -26,7 +27,7 @@ void __attribute__ ((interrupt ("IRQ"))) c_irq_handler (void)
 
     irq = cpu_interface_get_irq ();
     printk ("irq %d\n", irq);
-    irq_handler[irq]();
+    irq_handler[irq] ();
 
     /*
      * Clears the pending state of the corresponding peripheral interrupt.
@@ -39,7 +40,7 @@ void __attribute__ ((interrupt ("IRQ"))) c_irq_handler (void)
      * has completed the processing of the specified interrupt.
      */
 
-    cpu_interface_send_EOI(irq);
+    cpu_interface_send_EOI (irq);
 
     /* Enable IRQs */
     asm volatile ("cpsie i":::"memory", "cc");
@@ -60,7 +61,6 @@ void default_irq_handler (void)
 
 void irq_handler_init (void)
 {
-    for (int i=0;i<MAXIRQ;i++)
-        set_irq_handler(i, &default_irq_handler);
+    for (int i = 0; i < MAXIRQ; i++)
+        set_irq_handler (i, &default_irq_handler);
 }
-

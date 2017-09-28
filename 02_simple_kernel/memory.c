@@ -8,7 +8,6 @@
 uint32_t get_periphbase (void)
 {
     uint32_t periphbase;
-    asm ("mrc p15, 4, %0, c15, c0, 0":"=r" (periphbase));
+  asm ("mrc p15, 4, %0, c15, c0, 0":"=r" (periphbase));
     return periphbase;
 }
-

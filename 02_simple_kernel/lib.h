@@ -1,7 +1,7 @@
 
-void *memcpy (void *, void *, int);
-int strcpy (char *, char *);
-int strcmp (char *, char *);
-int strlen (char *);
-void itoa (char *, long int, int);
-void printk (char *, ...);
+extern void *memcpy (void *, void *, int);
+extern int strcpy (char *, char *);
+extern int strcmp (char *, char *);
+extern int strlen (char *);
+extern void itoa (char *, long int, int);
+extern void printk (char *, ...);
