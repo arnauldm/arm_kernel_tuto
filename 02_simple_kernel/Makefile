@@ -8,7 +8,7 @@ LDFLAGS = -nostdlib -lgcc
 
 all: main.elf
 
-main.elf: startup.o lib.o uart.o main.o 
+main.elf: startup.o main.o gic.o  handlers.o  lib.o  memory.o  timer.o  uart.o
 	arm-none-eabi-gcc $^ $(LDFLAGS) -T link.ld -o $@ 
 
 startup.o: startup.S

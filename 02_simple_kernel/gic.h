@@ -1,16 +1,14 @@
 #include <stdint.h>
 
-/*
- * References: [MPCORE-A9] and [GIC]
- */
-
 typedef uint32_t __unused__;
+
 
 /* 
  * Distributor registers (cf. [MPCORE-A9] p. 3-5) 
  * Offset are relative to the PERIPHBASE value + 0x1000 (cf. [MPCORE-A9] p.
  * 1-7)
  */
+
 #define DISTBASE 0x1000
 
 struct t_distributor {
@@ -31,7 +29,7 @@ struct t_distributor {
     __unused__ reserved_6[56];
     uint32_t ICDIPR[64];        /* Interrupt Priority Registers */
     __unused__ reserved_7[192];
-    uint32_t ICDIPTR[64];       /* Interrupt Processor Targets Registers */
+    uint8_t ICDIPTR[256];       /* Interrupt Processor Targets Registers */
     __unused__ reserved_8[192];
     uint32_t ICDICFR[64];       /* Interrupt Configuration Registers */
     uint32_t ICPPISR;           /* Private Peripheral Interrupt (PPI) Status */
@@ -40,11 +38,13 @@ struct t_distributor {
     uint32_t ICDSGIR;           /* Software Generated Interrupt */
 };
 
+
 /* 
  * Interrupt interface registers (cf. [MPCORE-A9] p. 3-13) 
  * Offset are relative to the CPU interface base address
  * that is PERIPHBASE + 0x100. (cf. [MPCORE-A9] p. 1-7)
  */
+
 #define CPUBASE 0x100
 
 struct t_cpu_interface {
@@ -56,14 +56,29 @@ struct t_cpu_interface {
     uint32_t ICCRPR;            /* Running Priority */
     uint32_t ICCHPIR;           /* Highest Pending Interrupt */
     uint32_t ICCABPR;           /* Aliased Non-secure Binary Point */
-    uint32_t reserved[55];
+    __unused__ reserved[55];
     uint32_t ICCIDR;            /* CPU Interface Implementer Identification */
 };
 
-/* Read Configuration Base Address Register */
-static inline uint32_t get_periphbase (void)
-{
-    uint32_t periphbase;
-  asm ("mrc p15, 4, %0, c15, c0, 0":"=r" (periphbase));
-    return periphbase;
-}
+
+#define MAXIRQ 256
+
+enum INTERRUPTs {
+    SGI0 = 0, /* 16 private interrupts, triggered by software */
+    GLOBAL_TIMER = 27,
+    LEGACY_FIQ = 28,
+    PRIV_TIMER = 29,
+    WATCHDOG = 30,
+    LEGACY_IRQ = 31,
+    SPI0 = 32 /* up to 224 interrupt lines */
+};
+
+extern void distributor_enable_irq (int);
+extern void distributor_disable_irq (int);
+extern void distributor_clear_pending (int);
+extern uint32_t cpu_interface_get_irq (void);
+extern void cpu_interface_send_EOI (int);
+extern void gic_enable (void);
+extern void gic_init (void);
+
+

@@ -21,7 +21,7 @@ prefetch_abort_handler_addr:  .word _default_handler
 data_abort_handler_addr:      .word _default_handler 
 hypervisor_handler_addr:      .word _default_handler 
 irq_handler_addr:             .word c_irq_handler 
-fiq_handler_addr:             .word c_fiq_handler
+fiq_handler_addr:             .word _default_handler
 
 _default_handler:
   b .
