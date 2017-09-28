@@ -3,7 +3,7 @@ MCPU 	= cortex-a9
 BOARD 	= vexpress-a9
 
 ASFLAGS	= -g 
-CFLAGS 	= -g -Wall -Wextra -ffreestanding
+CFLAGS 	= -g -Wall -Wextra -Wconversion -ffreestanding
 LDFLAGS = -nostdlib -lgcc 
 
 BUILD   = build

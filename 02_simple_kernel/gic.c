@@ -16,19 +16,19 @@ void distributor_enable_irq (int irq)
      * Note: writing '0' has no effect, thus we don't have to xor the register
      * with the expected value
      */
-    distributor->ICDISER[irq/32] = 1 << (irq % 32);
+    distributor->ICDISER[irq/32] = (uint32_t) 1 << (irq % 32);
 }
 
 
 void distributor_disable_irq (int irq)
 {
-    distributor->ICDICER[irq/32] = 1 << (irq % 32);
+    distributor->ICDICER[irq/32] = (uint32_t) 1 << (irq % 32);
 }
 
 
-void distributor_cpu_target (int irq, int cpu)
+void distributor_cpu_target (int irq, uint8_t cpu)
 {
-    distributor->ICDIPTR[irq] = (1 << cpu);
+    distributor->ICDIPTR[irq] = (uint8_t) 1 << cpu;
 }
 
 
@@ -37,7 +37,7 @@ void distributor_cpu_target (int irq, int cpu)
  */
 void distributor_clear_pending (int irq)
 {
-    distributor->ICDICPR[irq/32] = 1 << (irq % 32);
+    distributor->ICDICPR[irq/32] = (uint32_t) 1 << (irq % 32);
 }
 
 
@@ -65,9 +65,9 @@ void cpu_interface_priority_filter (uint8_t priority)
  * Read the interrupt ID of the signaled interrupt. Acts as an acknowledge
  * for the interrupt.
  */
-uint32_t cpu_interface_get_irq (void)
+int cpu_interface_get_irq (void)
 {
-    uint32_t irq;
+    int irq;
     irq = cpu_interface->ICCIAR & 0x1FF;
     return irq;
 }
@@ -79,7 +79,7 @@ uint32_t cpu_interface_get_irq (void)
  */
 void cpu_interface_send_EOI (int irq)
 {
-    cpu_interface->ICCEOIR = irq;
+    cpu_interface->ICCEOIR |= (irq & 0x1FF);
 }
 
 

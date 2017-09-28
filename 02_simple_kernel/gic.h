@@ -76,7 +76,7 @@ enum INTERRUPTs {
 extern void distributor_enable_irq (int);
 extern void distributor_disable_irq (int);
 extern void distributor_clear_pending (int);
-extern uint32_t cpu_interface_get_irq (void);
+extern int cpu_interface_get_irq (void);
 extern void cpu_interface_send_EOI (int);
 extern void gic_enable (void);
 extern void gic_init (void);
