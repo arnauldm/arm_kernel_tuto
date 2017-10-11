@@ -73,10 +73,9 @@ enum INTERRUPTs {
     SPI0 = 32                   /* up to 224 interrupt lines */
 };
 
-extern void distributor_enable_irq (int);
-extern void distributor_disable_irq (int);
-extern void distributor_clear_pending (int);
-extern int cpu_interface_get_irq (void);
-extern void cpu_interface_send_EOI (int);
-extern void gic_enable (void);
+extern void distributor_enable_irq (unsigned int);
+extern void distributor_disable_irq (unsigned int);
+extern void distributor_clear_pending (unsigned int);
+extern unsigned int cpu_interface_get_irq (void);
+extern void cpu_interface_send_EOI (unsigned int);
 extern void gic_init (void);

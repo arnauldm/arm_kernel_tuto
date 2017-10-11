@@ -18,7 +18,7 @@ void c_swi_handler (uint32_t num)
  */
 void __attribute__ ((interrupt ("IRQ"))) c_irq_handler (void)
 {
-    int irq;
+    unsigned int irq;
 
     /* Disable IRQs */
     asm volatile ("cpsid i":::"memory", "cc");
@@ -50,7 +50,7 @@ void __attribute__ ((interrupt ("IRQ"))) c_irq_handler (void)
 }
 
 
-void set_irq_handler (int irq, t_irq_handler fn)
+void set_irq_handler (unsigned int irq, t_irq_handler fn)
 {
     irq_handler[irq] = fn;
 }
@@ -64,6 +64,6 @@ void default_irq_handler (void)
 
 void irq_handler_init (void)
 {
-    for (int i = 0; i < MAXIRQ; i++)
+    for (unsigned int i = 0; i < MAXIRQ; i++)
         set_irq_handler (i, &default_irq_handler);
 }

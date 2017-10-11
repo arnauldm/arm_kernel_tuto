@@ -1,5 +1,5 @@
 #include "memory.h"
-#include "timer.h"
+#include "global_timer.h"
 #include "lib.h"
 
 volatile struct t_global_timer *global_timer;

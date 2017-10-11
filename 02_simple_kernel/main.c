@@ -1,10 +1,10 @@
 #include "gic.h"
-#include "timer.h"
+#include "global_timer.h"
 #include "lib.h"
 #include "handlers.h"
 
 
-void gtimer_handler (void)
+void global_timer_handler (void)
 {
     static int counter = 0;
     printk ("[%d]\n", ++counter);
@@ -19,11 +19,13 @@ void c_entry ()
     gic_init ();
 
     global_timer_init ();
-    global_timer_auto_increment (0x01000000);
-    set_irq_handler (27, gtimer_handler);
+    global_timer_auto_increment (0x04000000);
+    set_irq_handler (27, global_timer_handler);
 
-    gic_enable ();
+    /* Enable IRQ and FIQ */
+    asm volatile ("cpsie if":::"memory", "cc");
 
+    /* Testing software interrupt */
     asm volatile ("svc 0x42");
 
     while (1);

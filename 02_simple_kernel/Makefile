@@ -6,6 +6,11 @@ ASFLAGS	= -g
 CFLAGS 	= -g -Wall -Wextra -Wconversion -ffreestanding
 LDFLAGS = -nostdlib -lgcc 
 
+C_SRC = $(wildcard *.c)
+C_INC = $(wildcard *.h)
+C_OBJ = $(patsubst %.c, $(BUILD)/%.o, $(C_SRC))
+
+
 BUILD   = build
 
 all: $(BUILD) $(BUILD)/main.elf
@@ -13,7 +18,7 @@ all: $(BUILD) $(BUILD)/main.elf
 $(BUILD):
 	mkdir $(BUILD)
 
-$(BUILD)/main.elf: $(BUILD)/startup.o $(BUILD)/main.o $(BUILD)/gic.o  $(BUILD)/handlers.o  $(BUILD)/lib.o  $(BUILD)/memory.o  $(BUILD)/timer.o  $(BUILD)/uart.o
+$(BUILD)/main.elf: $(BUILD)/startup.o $(C_OBJ)
 	arm-none-eabi-gcc $^ $(LDFLAGS) -T link.ld -o $@ 
 
 $(BUILD)/startup.o: startup.S

@@ -36,15 +36,18 @@ _start:
   ldr r0, =reset
   mcr p15, 0, r0, c12, c0, 0 /* cf. ARMv7-A Ref. Manual, B4.1.156 */
 
-  /* stack_top is defined during linking */
+  /* processor core starts in supervisor mode */
   ldr sp, =stack_supervisor
 
+  /* set FIQ stack */
   cps #0x11
   ldr sp,=stack_fiq
 
+  /* set IRQ stack */
   cps #0x12
   ldr sp,=stack_irq
 
+  /* set SVM stack */
   cps #0x16
   ldr sp,=stack_monitor
 
