@@ -32,22 +32,22 @@ _default_handler:
   b .
 
 _start: 
-  /* set the new vector table */
+  /* Set the new vector table */
   ldr r0, =reset
   mcr p15, 0, r0, c12, c0, 0 /* cf. ARMv7-A Ref. Manual, B4.1.156 */
 
-  /* processor core starts in supervisor mode */
+  /* Processor core starts in supervisor mode */
   ldr sp, =stack_supervisor
 
-  /* set FIQ stack */
+  /* Set FIQ stack */
   cps #0x11
   ldr sp,=stack_fiq
 
-  /* set IRQ stack */
+  /* Set IRQ stack */
   cps #0x12
   ldr sp,=stack_irq
 
-  /* set SVM stack */
+  /* Set SVM stack */
   cps #0x16
   ldr sp,=stack_monitor
 
@@ -70,6 +70,11 @@ asm_swi_handler:
   /* Use value in R0 to determine which SVC routine to execute */
   bl c_swi_handler
 
-  /* Restore registers and return */
+  /* 
+   * Restore registers and return 
+   * Notes: 
+   *   - the ^ statement restore CPSR from SPSR
+   *   - restoring the CPSR reenable interrupts (CPSR.I bit)
+   */
   ldm sp!, {r0-r12,pc}^ 
 
