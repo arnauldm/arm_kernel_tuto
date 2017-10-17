@@ -10,25 +10,25 @@
 #define MODE_SYSTEM 	0X1F
 
 struct t_cpsr {
-    unsigned int mode:5;
-    unsigned int T:1;           /* Thumb */
+    uint32_t mode:5;
+    uint32_t T:1;           /* Thumb */
 
     /* (1) exception masked (0) not masked */
-    unsigned int FIQ:1;
-    unsigned int IRQ:1;
-    unsigned int async_abort:1;
+    uint32_t FIQ:1;
+    uint32_t IRQ:1;
+    uint32_t async_abort:1;
 
-    unsigned int E:1;           /* Endianness */
-    unsigned int IT_7_2:6;
-    unsigned int GE:4;
-    unsigned int reserved:4;
-    unsigned int J:1;           /* Jazelle */
-    unsigned int IT_1_0:2;
-    unsigned int Q:1;           /* Overflow or saturation */
-    unsigned int V:1;           /* Overflow */
-    unsigned int C:1;           /* Carry */
-    unsigned int Z:1;           /* Zero */
-    unsigned int N:1;           /* Negative */
+    uint32_t E:1;           /* Endianness */
+    uint32_t IT_7_2:6;
+    uint32_t GE:4;
+    uint32_t reserved:4;
+    uint32_t J:1;           /* Jazelle */
+    uint32_t IT_1_0:2;
+    uint32_t Q:1;           /* Overflow or saturation */
+    uint32_t V:1;           /* Overflow */
+    uint32_t C:1;           /* Carry */
+    uint32_t Z:1;           /* Zero */
+    uint32_t N:1;           /* Negative */
 };
 
 static inline struct t_cpsr get_cpsr (void)
