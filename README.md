@@ -1,5 +1,8 @@
 
-# Setting up ARM toolchain on GNU Linux / Debian
+# Demo kernels for ARM Cortex-a9
+
+Setting up ARM toolchain on GNU Linux / Debian
+----------------------------------------------
 
 > sudo apt-get install qemu-system-arm 
 
